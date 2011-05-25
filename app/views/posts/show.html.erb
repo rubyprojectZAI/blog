@@ -1,0 +1,81 @@
+<p id="notice">
+	<%= notice %>
+</p>
+<p>
+	<b>Title:</b>
+	<%= @post.title %>
+</p>
+<p>
+	<b>Body:</b>
+	<%= @post.body %>
+</p>
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>
+<div id="presentation">
+
+<span id='presentation_image' ><img src=/images/post-<%= @image_post%>slajd-<%= @page%>.jpg width="500"/></span>
+
+	
+	<a onclick = "prev_presentation_page();return false">prev</a>
+	<span id="actual_page_number">0</span> / <%= @presentation_max_number%>
+	<a onclick = "next_presentation_page();return false">Next</a>
+
+<video src="<%= @video_path%>"></video>
+<%= video_tag @video_path%>
+<video src="http://cdn.kaltura.org/apis/html5lib/kplayer-examples/media/bbb_trailer_iphone.m4v" controls="controls"></video>
+
+
+<script type="text/javascript">
+	
+	function prev_presentation_page () {
+		if (typeof page_number == "undefined")
+		{
+			page_number = 0
+		}
+		else if (page_number > 0)
+		{
+			page_number--
+		}
+		var notice = $('presentation_image');
+		var kod = "<img src=/images/post-<%= @image_post%>slajd-"+page_number+".jpg >"
+		notice.innerHTML=kod
+		notice.show();
+		
+		var actual_page_number = $('actual_page_number');
+		actual_page_number.innerHTML=page_number
+		actual_page_number.show();	
+	}
+	function next_presentation_page() 
+	{
+		if (typeof page_number == "undefined")
+		{
+			page_number = 1
+		}
+		else if (page_number < <%= @presentation_max_number%>)
+		{
+			page_number++
+		}
+		var notice = $('presentation_image');
+		var kod = "<img src=/images/post-<%= @image_post%>slajd-"+page_number+".jpg>"
+		notice.innerHTML=kod
+		notice.show();
+
+		var actual_page_number = $('actual_page_number');
+		actual_page_number.innerHTML=page_number
+		actual_page_number.show();	
+	}
+</script>
+</div>
+<h2>Comments</h2>
+<div id="comments">
+	<%= render :partial => @post.comments%>
+</div>
+<% form_for  [@post, Comment.new], :remote => true do |f| %>
+<p>
+	<%= f.label :body, "New Comment" %>
+	<%= f.text_area :body%>
+</p>
+<p>
+	<%= f.submit "Add comment"%>
+</p>
+<% end %>
