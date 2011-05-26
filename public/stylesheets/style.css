@@ -1,0 +1,116 @@
+* {
+    outline: medium none;
+}
+body {
+    background: url("../img/body-bg.png") repeat scroll 0 0 transparent;
+    color: #343434;
+    font: 13px arial;
+    margin: 0;
+    padding: 0;
+}
+a {
+    color: #205AAF;
+    text-decoration: none;
+}
+a img {
+    border: 0 none;
+}
+
+a:hover { color: #000; background-color:#FFCC00; }*/
+h1{
+	color: #363636;
+    font-family: 'Droid Sans',Arial;
+    font-size: 35px;
+    font-weight: normal;
+    margin: 0 0 40px;
+    padding: 0;
+}
+h2{
+	color: #363636;
+    font-family: 'Droid Sans',Arial;
+    font-size: 20px;
+    font-weight: normal;
+    margin: 0 0 10px;
+    padding: 0;
+}
+h4{
+	color: #363636;
+    font: 13px/1.5 "Droid Sans",sans-serif
+}
+#wrapper{
+	background: url("/images/style/tekstura.png") repeat scroll 50% -100px transparent
+}
+#header {
+    height: 225px;
+    margin: 0 auto;
+    position: relative;
+    width: 930px;
+    z-index: 10;
+}
+
+#content{
+	background: none repeat scroll 0 0 #FFFFFF;
+
+    margin: 0 auto;
+    position: relative;
+    width: 930px;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 0 6px #C6C6C6;
+    
+}
+#footer {
+    height: 60px;
+    margin: 0 auto;
+    position: relative;
+    width: 930px;
+    z-index: 10;
+}
+
+/*------------------------post/show------------------------------*/
+
+#post_content{
+	padding: 40px;
+}
+#description{
+	border-right: 1px dotted #D2D2D2;
+    color: #939393;
+    float: left;
+    font: 18px/1.4 "Droid Sans",sans-serif;
+    margin-bottom: 40px;
+    padding-right: 26px;
+    width: 540px;
+}
+#comments_content{
+	background:none repeat scroll 0 0 #F3F3F3;
+	padding: 40px;
+}
+#presentation img{
+	width: 450px;
+	height: 350px;
+}
+#presentation_image{
+	width: 560px;
+	height: 400px;
+}
+#comment{
+	border-bottom: 1px dotted #D2D2D2;
+	padding-bottom: 20px; 
+}
+#comment_title{
+	font-weight: 600;
+}
+#presentations_navigation{
+	margin-left: 140px;
+	color: #363636;
+    font-family: 'Droid Sans',Arial;
+    font-size: 20px;
+    font-weight: normal;
+    padding: 0;
+}
+/*------------------------user/show------------------------------*/
+#user_content{
+	padding: 40px;
+}
+#post_title{
+	font-weight: 600;
+}

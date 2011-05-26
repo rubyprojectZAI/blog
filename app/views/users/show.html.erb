@@ -1,15 +1,31 @@
-<p id="notice"><%= notice %></p>
+<div id="user_content">
 
-<p>
-  <b>Login:</b>
-  <%= @user.login %>
-</p>
+	<h1><%= @user.login %></h1>
+	<p id="notice">
+		<%= notice %>
+	</p>
+	<!-- <p>
+	<b>Password:</b>
+	<%= @user.password %>
+	</p> -->
 
-<p>
-  <b>Password:</b>
-  <%= @user.password %>
-</p>
+	<%= link_to 'Edytuj swój profil', edit_user_path(@user) %> | 
+	<%= link_to 'Nowy artykół', new_post_path %>
+<!-- 	<%= link_to 'Back', users_path %> -->
+	<br/><br/>
+	<h2>Twoje artykuły</h2>
+	<div id="post">
+		<% @posts.each do |i|%>
+		<p>
+			<span id="post_title">
+				<br/>
+				<%= i.title%> </br>
+			</span>
+			<%= i.body %>
+		</p>
+		<%= link_to 'Pokaż', i %> | 
+		<%= link_to 'Edytuj', edit_post_path(i) %>
 
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+		<% end %>
+	</div>
+</div>

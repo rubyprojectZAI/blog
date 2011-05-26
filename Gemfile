@@ -8,7 +8,7 @@ gem 'rails', '3.0.5'
 gem 'sqlite3'
 gem 'rmagick'
 gem "prototype"
-
+gem 'heroku'
 
 # Use unicorn as the web server
 # gem 'unicorn'

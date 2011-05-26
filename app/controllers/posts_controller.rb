@@ -25,6 +25,8 @@ class PostsController < ApplicationController
     @page = 0
     @presentation_max_number = @post.scene
     @video_path = @post.video
+    @autor = @post.user.login
+    @created = @post.created_at
     # @image_path = "/images/post-#{@post.id}slajd-#{@page}.jpg"
 
     session[:slajd] = 0
