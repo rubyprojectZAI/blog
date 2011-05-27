@@ -4,10 +4,11 @@
 body {
     background: url("../img/body-bg.png") repeat scroll 0 0 transparent;
     color: #343434;
-    font: 13px arial;
-    margin: 0;
-    padding: 0;
+    font-family: Arial;
+  	font-size:   13px;
+  	line-height: 18px;
 }
+
 a {
     color: #205AAF;
     text-decoration: none;
@@ -16,9 +17,10 @@ a img {
     border: 0 none;
 }
 
-a:hover { color: #000; background-color:#FFCC00; }*/
+a:hover { color: #000; background-color:#FFCC00; }
+
 h1{
-	color: #363636;
+	color: #0A67C5;
     font-family: 'Droid Sans',Arial;
     font-size: 35px;
     font-weight: normal;
@@ -33,9 +35,21 @@ h2{
     margin: 0 0 10px;
     padding: 0;
 }
+h3{
+	color: #939393;
+    font: 18px/1.4 "Droid Sans",sans-serif;
+}
 h4{
 	color: #363636;
     font: 13px/1.5 "Droid Sans",sans-serif
+}
+h5{
+	color: #363636;
+    font-family: 'Droid Sans',Arial;
+    font-size: 16px;
+    font-weight: normal;
+    margin: 0 0 10px;
+    padding: 0;
 }
 #wrapper{
 	background: url("/images/style/tekstura.png") repeat scroll 50% -100px transparent
@@ -46,6 +60,7 @@ h4{
     position: relative;
     width: 930px;
     z-index: 10;
+    background: url("/images/style/logo.png") repeat scroll transparent
 }
 
 #content{
@@ -71,7 +86,7 @@ h4{
 #post_content{
 	padding: 40px;
 }
-#description{
+.description{
 	border-right: 1px dotted #D2D2D2;
     color: #939393;
     float: left;
@@ -79,6 +94,7 @@ h4{
     margin-bottom: 40px;
     padding-right: 26px;
     width: 540px;
+    margin-right: 20px;
 }
 #comments_content{
 	background:none repeat scroll 0 0 #F3F3F3;
@@ -107,6 +123,24 @@ h4{
     font-weight: normal;
     padding: 0;
 }
+#post_listing{
+	height: 220px;
+	border-bottom: 1px dotted #D2D2D2;
+}
+#presentation_miniatures img{
+	width: 140px;
+	height: 110px;
+/*	float: left;*/
+}
+#presentation_miniatures{
+	width: 140px;
+	height: 110px;
+	padding: 10px;
+	border: 1px solid #C5C5C5;
+	float: left;
+	margin-right: 20px;
+}
+
 /*------------------------user/show------------------------------*/
 #user_content{
 	padding: 40px;

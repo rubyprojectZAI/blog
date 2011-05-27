@@ -5,7 +5,7 @@ class PostsController < ApplicationController
   # def initialize
     # # session[:slajd] = 0
   # end
-  attr_accessor :numer_slajdu
+
   
   def index
     @posts = Post.all

@@ -5,19 +5,19 @@
 </p>
 	<h1><%= @post.title %></h1>
 
-	<p id="description"><%= @post.body %></p>
+	<p class="description"><%= @post.body %></p>
 	<p>
 		<%= link_to 'Edit', edit_post_path(@post) %> |
 		<%= link_to 'Back', posts_path %>
-		<h2>autor: <%= @autor%><h2/>
-		<h2>data utworzenia: <%= @created.strftime '%d/%m/%Y'%><h2/>
+		<h5>autor: <%= @autor%><h2/>
+		<h5>data utworzenia: <%= @created.strftime '%d/%m/%Y'%><h2/>
 	</p>
 	
 </div>
 
 <div id="presentation">
 	<p>
-		<span id='presentation_image' ><img src=/images/post-<%= @image_post%>slajd-<%= @page%>.jpg width="500"/></span>
+		<span id='presentation_image' ><img src=/images/post-<%= @image_post%>slajd-<%= @page%>.jpg></span>
 		<video width="350" height="200" controls="controls">
 			<source src="http://tinyvid.tv/file/1bjuyg6rp4q71.ogg" type="video/ogg" />
 			Your browser does not support the video tag.

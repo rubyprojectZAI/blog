@@ -10,8 +10,8 @@
 	</p> -->
 
 	<%= link_to 'Edytuj swój profil', edit_user_path(@user) %> | 
-	<%= link_to 'Nowy artykół', new_post_path %>
-<!-- 	<%= link_to 'Back', users_path %> -->
+	<%= link_to 'Nowy artykół', new_post_path %> | 
+	<%= link_to "wyloguj", :controller => "access", :action => "logout"%> 
 	<br/><br/>
 	<h2>Twoje artykuły</h2>
 	<div id="post">
@@ -24,7 +24,8 @@
 			<%= i.body %>
 		</p>
 		<%= link_to 'Pokaż', i %> | 
-		<%= link_to 'Edytuj', edit_post_path(i) %>
+		<%= link_to 'Edytuj', edit_post_path(i) %> | 
+		<%= link_to 'Usuń', i, :confirm => 'Jesteś pewny?', :method => :delete %></div>
 
 		<% end %>
 	</div>
