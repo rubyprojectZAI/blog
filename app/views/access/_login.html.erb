@@ -1,0 +1,28 @@
+<div id="login_content">
+<div class="close"><a onClick="javascript:close_login_box();" >Zamknij</a></div>
+<h1>Logowanie</h1>
+<!-- 	<%= session[:login]%> -->
+
+	<% if !flash[:notice].blank?%>
+		<div class="notice">
+			<%= flash[:notice]%>
+			
+		</div>
+	<% end %>
+	<%= form_tag(:controller => 'access', :action => 'attempt_login') do %>
+		<p>
+			<%= label_tag(:login, "Login:") %>
+		
+			<%= text_field_tag(:login)  %>
+		<p/>
+		<p>
+			<%= label_tag(:password, "Hasło:") %>
+		
+			<%= password_field_tag(:password) %>
+		<p/>
+		<p>
+			<%= submit_tag("Zaloguj") %>
+		</p>
+	<% end%>
+</div>
+

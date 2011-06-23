@@ -1,4 +1,8 @@
 class AccessController < ApplicationController
+  
+  before_filter :confirm_logged_in, :except => [:login, :attempt_login, :logout]
+  
+  
   def login
   end
   
@@ -11,8 +15,8 @@ class AccessController < ApplicationController
       flash[:notice] = "Witaj "+session[:login] 
       redirect_to(:controller => 'users', :action => 'show', :id => session[:user_id])
     else
-      flash[:notice] = "Invalide login/password"
-      redirect_to(:action => 'login')
+      flash[:notice] = "Nieprawidlowy login lub haslo"
+      redirect_to('/posts')
     end
   end
   
@@ -20,7 +24,9 @@ class AccessController < ApplicationController
     session[:user_id] = nil
     session[:login] = nil
     flash[:notice] = ""
-    redirect_to(:action => 'login')
+    redirect_to('/posts')
   end
+  
+ 
 
 end

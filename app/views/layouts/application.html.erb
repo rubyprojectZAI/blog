@@ -11,11 +11,36 @@
 </head>
 <body>
 <div id="wrapper">
+	
+
+<script type="text/javascript">
+function open_login_box(){
+		$('login_box').setStyle({
+  			display: 'block'
+		});
+}
+
+function close_login_box(){
+		$('login_box').setStyle({
+  			display: 'none'
+		});
+}
+	
+</script>
+
+	<div id="login_link"><%= session[:login]%> | <a onClick="javascript:open_login_box();" >Zaloguj</a> | <%= link_to 'Zarejestruj', "users/new" %></div>
+	<div id="login_box">
+		<%= render "access/login"%>
+		
+	</div>
+	
 	<div id="header"></div>
 	<div id="content">
 		<%= yield %>
 	</div>
-	<div id="footer"></div>
+	<div id="footer">
+		<span id="footer_info">Copyright by inżynier 2.0</span>
+	</div>
 </div>
 
 

@@ -6,6 +6,8 @@ class CreatePosts < ActiveRecord::Migration
       t.text :body
       t.integer :scene
       t.string :video
+      t.integer :goodrate
+      t.integer :badrate
 
       t.timestamps
     end

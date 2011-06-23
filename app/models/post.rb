@@ -1,8 +1,10 @@
 require 'RMagick'
 class Post < ActiveRecord::Base
-	validates_presence_of :title, :body
+	
 	has_many :comments
 	belongs_to :user
+	
+	validates_presence_of :title, :body
 	
 	# before_save :save_scene
 # 	

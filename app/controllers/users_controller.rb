@@ -1,6 +1,9 @@
 class UsersController < ApplicationController
   # GET /users
   # GET /users.xml
+  
+  before_filter :confirm_logged_in, :except => [:create, :new]
+  
   def index
     @users = User.all
 

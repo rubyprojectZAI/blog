@@ -25,6 +25,8 @@ ActiveRecord::Schema.define(:version => 20110427102445) do
     t.text     "body"
     t.integer  "scene"
     t.string   "video"
+    t.integer  "goodrate"
+    t.integer  "badrate"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

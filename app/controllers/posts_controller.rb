@@ -1,12 +1,14 @@
 require 'RMagick'
+require 'webrick/httputils'
+
+list = WEBrick::HTTPUtils.load_mime_types('/etc/mime.types')
+Rack::Mime::MIME_TYPES.merge!(list)
+
 class PostsController < ApplicationController
   # GET /posts
   # GET /posts.xml
-  # def initialize
-    # # session[:slajd] = 0
-  # end
 
-  
+  before_filter :confirm_logged_in, :except => [:show, :index]
   def index
     @posts = Post.all
 
@@ -19,7 +21,7 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.xml
   def show
-    
+
     @post = Post.find(params[:id])
     @image_post = @post.id
     @page = 0
@@ -56,34 +58,10 @@ class PostsController < ApplicationController
   # POST /posts.xml
   def create
 
-    # Post.transaction do
-      # slajd = Post.convert_to_pdf(params[:upload])
-      @user = User.find_by_login(session[:login])
-      @post = @user.posts.create!(params[:post])
-      slajd = Post.convert_to_pdf(params[:upload], @post.id)
-      video = Post.save_video(params[:upload_video], @post.id)
-    # end
-    
-    
-    # slajd = Post.convert_to_pdf(params[:upload])
-    # @user = User.find_by_login(session[:login])
-    # @post = @user.posts.create!(params[:post])
-    
-    # @post = Post.new(params[:post])
-    # pdf = Post.convert_pdf(params[:upload])
-    #############################################################
-    
-    # name =  params[:upload]['datafile'].original_filename
-    # directory = "upload/public/data"
-    # # create the file path
-    # path = File.join(directory, name)
-    # # write the file
-    # File.open(path, "wb") { |f| f.write(params[:upload]['datafile'].read) }
-#     
-    # pdf = Magick::ImageList.new("upload/public/data/#{name}")
-    # pdf.write("upload/public/data/post-#{@post.id}slajd.jpg")
-    
-    #############################################################
+    @user = User.find_by_login(session[:login])
+    @post = @user.posts.create!(params[:post])
+    slajd = Post.convert_to_pdf(params[:upload], @post.id)
+    video = Post.save_video(params[:upload_video], @post.id)
 
     respond_to do |format|
       if @post.save
@@ -123,40 +101,106 @@ class PostsController < ApplicationController
       format.xml  { head :ok }
     end
   end
-  
-   def uploadFile
+
+  def uploadFile
     post = DataFile.save(params[:upload])
     render :text => "File has been uploaded successfully"
-  end 
-  def show_image
-    puts "dziala"
-    @post = Post.find(params[:id])
+  end
+
+  def rate
     
-    if session[:slajd] == nil
-      puts session[:login]
-     puts session[:slajd] = 0
+    @post = Post.find(params[:id])
+
+
+    if cookies[:rates].blank?
+      change_rate = true
+    else
+      i = 0
+      while i < cookies[:rates].length do
+      if cookies[:rates][i] == @post.id.to_s()
+        change_rate = false
+      else
+        change_rate = true
+      end
+
+      puts cookies[:rates][i]
+      i += 1
+    end
+    end
+    
+
+    if change_rate == true
+
+      badrate = @post.badrate
+      if badrate == nil
+      badrate = 1
+      else
+      badrate = badrate +1
+      end
+      @post.badrate = badrate
+      @post.save
+
+      if cookies[:rates].blank?
+        cookies[:rates] = [@post.id]
+      else
+        cookies[:rates] = cookies[:rates] + @post.id.to_s()
+      end
     end
 
-     puts session[:slajd] = session[:slajd] + 1
+    @tekst = @post.badrate
+    
 
-    
-    # session[:slajd] = session[:slajd].to_i + 1
-    @page = session[:slajd].to_s
-    @image_path = "/images/post-#{@post.id}slajd-#{@page}.jpg"
-    @image_post = 
-    # if numer_slajdu == nil
-      # numer_slajdu = 0
-    # end
-#     
-    # numer_slajdu = numer_slajdu + 1
-    
-    # @image_path = "/images/post-#{@post.id}slajd-#{numer_slajdu}.jpg"
-    
     respond_to do |format|
-      format.html # show.html.erb
-      format.js  
-      # { render :xml => @image_paths }
+    # format.html # show.html.erb
+      format.js
     end
   end
-  
+
+  def rategood
+
+    @post = Post.find(params[:id])
+
+    if cookies[:rates].blank?
+      change_rate = true
+    else
+      i = 0
+      while i < cookies[:rates].length do
+      if cookies[:rates][i] == @post.id.to_s()
+      change_rate = true
+      else
+      change_rate = false
+      end
+
+      puts cookies[:rates][i]
+      i += 1
+    end
+    end
+    
+
+    if change_rate == true
+
+      goodrate = @post.goodrate
+      if goodrate == nil
+      goodrate = 1
+      else
+      goodrate = goodrate +1
+      end
+      @post.goodrate = goodrate
+      @post.save
+
+      if cookies[:rates].blank?
+        cookies[:rates] = [@post.id]
+      else
+        cookies[:rates] = cookies[:rates] + @post.id.to_s()
+      end
+    end
+
+    @tekst = @post.goodrate
+
+    respond_to do |format|
+    # format.html # show.html.erb
+      format.js
+    end
+  end
+
 end

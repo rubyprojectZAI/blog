@@ -1,3 +1,24 @@
+
+<script type="text/javascript">
+	Ajax.Responders.register({
+		onCreate: function(request) {
+			var csrf_meta_tag = $$('meta[name=csrf-token]')[0];
+
+			if (csrf_meta_tag) {
+				var header = 'X-CSRF-Token',
+				token = csrf_meta_tag.readAttribute('content');
+
+				if (!request.options.requestHeaders) {
+					request.options.requestHeaders = {};
+				}
+				request.options.requestHeaders[header] = token;
+			}
+		}
+	});
+</script>
+<%= csrf_meta_tag %>
+
+
 <div id="post_content">
 <div id="post_info">
 <p id="notice">
@@ -7,51 +28,63 @@
 
 	<p class="description"><%= @post.body %></p>
 	<p>
-		<%= link_to 'Edit', edit_post_path(@post) %> |
-		<%= link_to 'Back', posts_path %>
 		<h5>autor: <%= @autor%><h2/>
 		<h5>data utworzenia: <%= @created.strftime '%d/%m/%Y'%><h2/>
+
+		<div id="rate">
+			<%= link_to( image_tag("/images/style/good.png"), '/posts/rategood?id=' + @post.id.to_s(),
+					:remote => true,
+					:method => "post",
+                    :update => "rate_good_div",
+                    ) %>
+
+                    <span id="rate_good_div"><%= @post.goodrate %></span>
+                    /
+                    <span id="rate_div"><%= @post.badrate %></span>
+
+			<%= link_to( image_tag("/images/style/bad.png"), '/posts/rate?id=' + @post.id.to_s(),
+					:remote => true,
+					:method => "post",
+                    :update => "rate_div",
+                    ) %>
+		</div>
 	</p>
 	
 </div>
 
+
 <div id="presentation">
 	<p>
 		<span id='presentation_image' ><img src=/images/post-<%= @image_post%>slajd-<%= @page%>.jpg></span>
-		<video width="350" height="200" controls="controls">
-			<source src="http://tinyvid.tv/file/1bjuyg6rp4q71.ogg" type="video/ogg" />
+
+		<video width="420" height="380" controls="controls">
+			<source src="<%= @video_path%>" type="video/ogg" />
 			Your browser does not support the video tag.
 		</video>
 	</p>
 	<p>	
 		<div id="presentations_navigation">
-			<a onclick = "prev_presentation_page();return false">prev</a>
+			<a onclick = "prev_presentation_page();return false"><img src="/images/style/prev.png" /></a>
 			<span id="actual_page_number">0</span> / <%= @presentation_max_number%>
-			<a onclick = "next_presentation_page();return false">Next</a>
+			<a onclick = "next_presentation_page();return false"><img src="/images/style/next.png" /></a>
 		</div>
 		
 	</p>
 	
 
 
-<!-- 
-<video width="320" height="240" controls="controls">
+
+<!-- <video width="320" height="240" controls="controls">
 <source src="http://cdn.kaltura.org/apis/html5lib/kplayer-examples/media/bbb_trailer_iphone.m4v" type="video/mp4" />
+</video> 
 
-Your browser does not support the video tag.
-</video> -->
-
-
-<!-- <video src="<%= @video_path%>"></video>
+<video src="<%= @video_path%>"></video>
 <%= video_tag @video_path%>
 <video src="http://cdn.kaltura.org/apis/html5lib/kplayer-examples/media/bbb_trailer_iphone.m4v" controls="controls"></video>
 
 
 <video width="420" height="240" controls preload="metadata" poster="/images/video.jpg">
- <!-- Video sources -->
-<!--  <source src="http://cdn.kaltura.org/apis/html5lib/kplayer-examples/media/bbb_trailer_iphone.m4v" type='video/ogg; codecs="theora, vorbis"'>
-</video> -->
-
+ <source src="http://cdn.kaltura.org/apis/html5lib/kplayer-examples/media/bbb_trailer_iphone.m4v" type='video/ogg; codecs="theora, vorbis"'>\n</video> -->
 <script type="text/javascript">
 	
 	function prev_presentation_page () {
@@ -90,6 +123,41 @@ Your browser does not support the video tag.
 		var actual_page_number = $('actual_page_number');
 		actual_page_number.innerHTML=page_number
 		actual_page_number.show();	
+	}
+	function goodrate() 
+	{
+
+		new Ajax.Request('/posts/rate', 
+		{
+			parameters: { },  
+			onSuccess: function(transport) 
+			{
+				var notice = $('login_error_msg');
+				
+				if (transport.responseText == "OK") 
+				{
+					window.location = "http://siati.pl/projects/teamproject/ruby/ruby.php";
+					
+					return false;
+				}
+				else 
+				{
+					notice.innerHTML='Nieprawidłowa nazwa użytkownika lub hasło.';
+					//notice.innerHTML=transport.responseText;
+					setTimeout('Windows.focusedWindow.close()', 2000);
+				}
+				
+				notice.show();
+				
+				Windows.focusedWindow.updateHeight();
+				new Effect.Shake(Windows.focusedWindow.getId()); return false;
+			},
+			onFailure: function()
+			{
+				alert("Bląd w połączeniu z serwerem!");
+			}
+		});
+
 	}
 </script>
 </div>

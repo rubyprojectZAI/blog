@@ -1,7 +1,7 @@
 require 'digest/sha1'
 class User < ActiveRecord::Base
 	has_many :posts
-	
+	validates_presence_of :login, :password
   # attr_accessor :hashed_password
 	
 	# validates_length_of :password, :within => 8..25, :on => :create
