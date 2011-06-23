@@ -166,9 +166,9 @@ class PostsController < ApplicationController
       i = 0
       while i < cookies[:rates].length do
       if cookies[:rates][i] == @post.id.to_s()
-      change_rate = true
-      else
       change_rate = false
+      else
+      change_rate = true
       end
 
       puts cookies[:rates][i]
